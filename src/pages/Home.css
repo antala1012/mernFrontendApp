@@ -1,0 +1,13 @@
+.home__bg {
+    background-image: url('https://www.washingtonpost.com/rf/image_1484w/2010-2019/WashingtonPost/2016/05/26/Local/Images/iStock_000071042881_Full1464272290.jpg?t=20170517');
+    height: 92vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+}
+
+.home-message-icon {
+    margin-left: 10px;
+    display: inline-block;
+}
