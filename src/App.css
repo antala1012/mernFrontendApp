@@ -32,7 +32,70 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.react-input-emoji--container {
+  border-color: #bfbfbf !important;
+}
+
+.react-emoji {
+  flex-direction: row-reverse !important;
+}
+
+.react-emoji-picker--wrapper {
+  left: 0 !important;
+}
+
+.picker-container {
+  position: relative;
+  width: 300px;
+}
+
+.emoji-icon {
+  cursor: pointer;
+  position: absolute;
+  top: 1px;
+  right: 13px;
+  padding: 10px;
+}
+
+.input-style {
+  padding: 7px 30px 7px 10px;
+  width: calc(100% - 40px);
+  border-radius: 3px;
+  border: 1px solid #999;
+  margin-bottom: 10px;
+}
+
+.bg {
+  background-image: linear-gradient(109.6deg, rgba(204, 228, 247, 1) 11.2%, rgba(237, 246, 250, 1) 100.2%);
+}
+
+.bg-main {
+  background-image: linear-gradient(109.6deg, rgba(204, 228, 247, 1) 11.2%, rgba(237, 246, 250, 1) 100.2%);
+  height: calc(100vh - 77px);
+  padding: 0 20px;
+}
+
+.messageBg {
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.bgSidebar {
+  background-color: #fff;
+  padding-right: 0 !important;
+  border-radius: 10px;
+  height: 100%;
+  min-height: 820px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.list-group-item:last-child {
+  border-radius: 0 !important;
 }

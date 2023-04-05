@@ -6,6 +6,7 @@ const appApi = createApi({
     reducerPath: "appApi",
     baseQuery: fetchBaseQuery({
         baseUrl: "https://mernchatapp-0o8f.onrender.com",
+        // baseUrl: "http://localhost:5001",
     }),
 
     endpoints: (builder) => ({

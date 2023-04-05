@@ -5,16 +5,16 @@ import MessageForm from "../components/MessageForm";
 
 function Chat() {
     return (
-        <Container>
-            <Row className="m-0">
-                <Col md={4}>
+        <div className="bg-main">
+            <div className="m-0 d-flex align-items-center gap-4" style={{ width: "100%" }}>
+                <div md={3} className="bgSidebar" style={{ width: '20%' }}>
                     <Sidebar />
-                </Col>
-                <Col md={8}>
+                </div>
+                <div md={9} className="messageBg m-0" style={{ width: '79%' }}>
                     <MessageForm />
-                </Col>
-            </Row>
-        </Container>
+                </div>
+            </div>
+        </div>
     );
 }
 

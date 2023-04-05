@@ -1,10 +1,9 @@
-.mesaage-wrapper {
+/* .mesaage-wrapper {
     border: 1px solid #94a3b8
-}
+} */
 
 .messages-output {
     height: 70vh;
-    border: 1px solid lightgray;
     overflow-y: auto;
 }
 
@@ -15,7 +14,7 @@
 }
 
 .messages-output::-webkit-scrollbar {
-    width: 2px;
+    width: 0px;
     background-color: #F5F5F5;
 }
 
@@ -32,20 +31,25 @@
     min-width: 200px;
     max-width: 90%;
     text-align: left;
-    min-height: 80px;
+    min-height: 64px;
     font: 400 1em, sans-serif;
     display: inline-block;
-    border-radius: 10px;
-    background-color: #e2e8f0;
+    border-radius: 16px;
+    background-image: linear-gradient(-225deg, #5D9FFF 0%, #B8DCFF 48%, #6BBBFF 100%);
     color: #000;
 }
 
 .incoming-message .message-inner {
     color: #fff;
-    background-color: #64748b;
+    background-image: radial-gradient(circle farthest-corner at 18.5% 28.5%, rgba(4, 71, 88, 1) 0%, rgba(12, 141, 190, 1) 90%);
+    border-bottom-left-radius: 0;
 }
 
-.incoming-message {
+.message .message-inner {
+    border-bottom-right-radius: 0;
+}
+
+.message {
     display: flex;
     justify-content: flex-end;
     margin-right: 20px;
@@ -61,11 +65,12 @@
 }
 
 .message-date-indicator {
-    width: 120px;
+    width: 80px;
     margin: 10px auto;
     background-color: #e2e8f0;
     border-radius: 8px;
-    padding: 8px 10px;
+    padding: 5px 8px;
+    font-size: 13px;
 }
 
 .conversation-info {
@@ -75,8 +80,9 @@
     height: 60px;
     gap: 10px;
     padding: 16px;
-    background-color: #334155;
-    color: #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 10px;
+    color: #334155;
 }
 
 .conversation-profile-pic {
@@ -89,3 +95,26 @@
 .form-data {
     padding: 10px;
 }
+
+.message-inner .buttonmenu button {
+    background-color: transparent !important;
+    color: #000 !important;
+    border: 0;
+    box-shadow: none !important;
+}
+
+.incoming-message .message-inner .buttonmenu button {
+    background-color: transparent !important;
+    color: #fff !important;
+    border: 0 !important;
+}
+
+.dropup .buttonmenu button::after {
+    display: none;
+}
+
+.btn-check:active+.btn-primary,
+.btn-check:checked+.btn-primary,
+.btn-primary.active,
+.btn-primary:active,
+.show>.btn-primary.dropdown-toggle {}

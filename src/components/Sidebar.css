@@ -27,7 +27,17 @@
     left: 12px;
 }
 
-.list-group-item.active {
-    background-color: #475569 !important;
-    border-color: #475569 !important;
+.list-group-item {
+    background-color: #f1f5f9 !important;
+    border-color: transparent !important;
+    padding: 15px 10px !important;
+    border: 0 !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+}
+
+.list-group-item.active,
+.list-group-item:hover {
+    background-image: radial-gradient(circle farthest-corner at 18.5% 28.5%, rgba(4, 71, 88, 1) 0%, rgba(12, 141, 190, 1) 90%);
+    border-color: transparent;
+    color: #fff !important;
 }

@@ -43,6 +43,7 @@ function Sidebar() {
     });
 
     function getRooms() {
+        // fetch("http://localhost:5001/rooms")
         fetch("https://mernchatapp-0o8f.onrender.com/rooms")
             .then((res) => res.json())
             .then((data) => setRooms(data));
@@ -67,7 +68,7 @@ function Sidebar() {
     }
     return (
         <>
-            <h5>Members</h5>
+            {/* <h5>Members</h5> */}
             <ListGroup.Item onClick={() => joinRoom(rooms[0])} active={rooms[0] == currentRoom} style={{ cursor: "pointer" }}>
                 <Row>
                     <Col xs={2} className="member-status">
@@ -80,7 +81,7 @@ function Sidebar() {
                     </Col>
                 </Row>
             </ListGroup.Item>
-            {members.length && members.map((member) => (
+            {members.length ? members.map((member) => (
                 <>
                     <ListGroup.Item key={member.id} style={{ cursor: "pointer" }} active={privateMemberMsg?._id == member?._id} onClick={() => handlePrivateMemberMsg(member)} disabled={member._id === user._id}>
                         <Row>
@@ -99,7 +100,7 @@ function Sidebar() {
                         </Row>
                     </ListGroup.Item>
                 </>
-            ))}
+            )) : ""}
         </>
     );
 }

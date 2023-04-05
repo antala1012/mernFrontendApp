@@ -1,9 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, ButtonGroup, Col, Dropdown, DropdownButton, Form, Row } from "react-bootstrap";
 import { FaHashtag } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { AppContext } from "../context/appContext";
+import InputEmoji from 'react-input-emoji'
 import "./MessageForm.css";
+import { GoKebabVertical } from "react-icons/go";
+import moment from "moment/moment";
+
 function MessageForm() {
     const [message, setMessage] = useState("");
     const user = useSelector((state) => state.user);
@@ -26,9 +30,9 @@ function MessageForm() {
         return month + "/" + day + "/" + year;
     }
 
-    function handleSubmit(e) {
-        e.preventDefault();
-    }
+    // function handleSubmit(e) {
+    //     e.preventDefault();
+    // }
 
     function scrollToBottom() {
         messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -41,7 +45,6 @@ function MessageForm() {
     });
 
     function handleSubmit(e) {
-        e.preventDefault();
         if (!message) return;
         const today = new Date();
         const minutes = today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
@@ -51,7 +54,14 @@ function MessageForm() {
         setMessage("");
     }
 
-    console.log("messages", messages);
+    function handleDelete(id) {
+        const roomId = currentRoom;
+        console.log("id", id);
+        socket.emit("delete-message", id, roomId);
+    }
+
+    console.log("user", user);
+
     return (
         <div className="mesaage-wrapper">
             {user && !privateMemberMsg?._id &&
@@ -73,18 +83,38 @@ function MessageForm() {
                 {user &&
                     messages.map(({ _id: date, messagesByDate }, idx) => (
                         <div key={idx}>
-                            <p className="text-center message-date-indicator">{date}</p>
-                            {messagesByDate?.map(({ content, time, from: sender }, msgIdx) => (
+                            <p className="text-center message-date-indicator">{moment().format('DD/MM/YYYY') === moment(date).format('DD/MM/YYYY') ? 'Today' : moment().subtract(1, 'd') ? 'Yesterday' : date}</p>
+                            {messagesByDate?.map(({ content, time, from: sender, _id }, msgIdx) => (
                                 <div className={sender?.email == user?.email ? "message" : "incoming-message"} key={msgIdx}>
                                     <div className="message-inner">
-                                        <div className="d-flex align-items-center justify-content-between mb-1">
-                                            <div className="d-flex align-items-center">
-                                                <img src={sender.picture} style={{ width: 35, height: 35, objectFit: "cover", borderRadius: "50%", marginRight: 10 }} />
-                                                <p className="message-sender">{sender._id == user?._id ? "You" : sender.name}</p>
-                                            </div>
-                                            <p className="message-timestamp-left mb-1 font-weight-bold">{time}</p>
-                                        </div>
+                                        {
+                                            user && !privateMemberMsg?._id &&
+                                            <>
+                                                <div className="d-flex align-items-center justify-content-between mb-1">
+                                                    <div className="d-flex align-items-center">
+                                                        <img src={sender.picture} style={{ width: 35, height: 35, objectFit: "cover", borderRadius: "50%", marginRight: 10 }} />
+                                                        <p className="message-sender mb-0">{sender._id == user?._id ? "You" : sender.name}</p>
+                                                    </div>
+                                                    <div className="btn-group dropup">
+                                                        {/* <button className="buttonmenu dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button> */}
+                                                        {
+                                                            sender._id == user?._id &&
+                                                            <DropdownButton
+                                                                as={ButtonGroup}
+                                                                className="buttonmenu"
+                                                                id={`dropdown-button-drop`}
+                                                                drop='up'
+                                                                title={<GoKebabVertical />}
+                                                            >
+                                                                <Dropdown.Item onClick={() => handleDelete(_id)} eventKey="1">Delete</Dropdown.Item>
+                                                            </DropdownButton>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </>
+                                        }
                                         <p className="message-content mb-1">{content}</p>
+                                        <p className="message-timestamp-left mb-0 text-end font-weight-bold">{time}</p>
                                     </div>
                                 </div>
                             ))}
@@ -92,21 +122,28 @@ function MessageForm() {
                     ))}
                 <div ref={messageEndRef} />
             </div>
-            <Form onSubmit={handleSubmit} className="form-data">
-                <Row>
-                    <Col md={11}>
-                        <Form.Group>
-                            <Form.Control type="text" placeholder="Your message" disabled={!user} value={message} onChange={(e) => setMessage(e.target.value)}></Form.Control>
-                        </Form.Group>
+            <Form className="form-data">
+                <Row className="align-items-center">
+                    <Col md={12}>
+                        {/* <Form.Group>
+                            <Form.Control type="text" placeholder="Your message" onKeyDown={(e) => e.key === "Enter" && handleSubmit()} disabled={!user} value={message} onChange={(e) => setMessage(e.target.value)}></Form.Control>
+                        </Form.Group> */}
+                        <InputEmoji
+                            value={message}
+                            onChange={setMessage}
+                            disabled={!user}
+                            onEnter={handleSubmit}
+                            placeholder="Type a message"
+                        />
                     </Col>
-                    <Col md={1}>
-                        <Button type="submit" style={{ width: "100%", backgroundColor: "#64748b", border: '0' }} disabled={!user}>
+                    <Col md={1} style={{ position: "absolute", right: "22px" }}>
+                        <Button type="button" onClick={handleSubmit} style={{ width: "100%", backgroundColor: "#64748b", border: '0', borderRadius: "25px", backgroundImage: "radial-gradient(circle farthest-corner at 18.5% 28.5%, rgba(4, 71, 88, 1) 0%, rgba(12, 141, 190, 1) 90%)" }} disabled={!user}>
                             <i className="fas fa-paper-plane"></i>
                         </Button>
                     </Col>
                 </Row>
             </Form>
-        </div>
+        </div >
     );
 }
 

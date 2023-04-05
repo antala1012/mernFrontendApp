@@ -15,8 +15,8 @@ function Navigation() {
         localStorage.clear()
     }
     return (
-        <Navbar bg="light" expand="lg">
-            <Container>
+        <div className="ps-4 pe-5">
+            <Navbar>
                 <LinkContainer to="/">
                     <Navbar.Brand>
                         <img src={logo} style={{ width: 50, height: 50 }} />
@@ -30,9 +30,9 @@ function Navigation() {
                                 <Nav.Link>Login</Nav.Link>
                             </LinkContainer>
                         )}
-                        <LinkContainer to="/chat">
+                        {/* <LinkContainer to="/chat">
                             <Nav.Link>Chat</Nav.Link>
-                        </LinkContainer>
+                        </LinkContainer> */}
                         {user && (
                             <NavDropdown
                                 title={
@@ -50,8 +50,8 @@ function Navigation() {
                         )}
                     </Nav>
                 </Navbar.Collapse>
-            </Container>
-        </Navbar >
+            </Navbar >
+        </div>
     );
 }
 
